@@ -1,4 +1,4 @@
-import data
+import data.data as data
 import numpy as np
 
 
@@ -39,7 +39,7 @@ def generateSentence(seed=0):
         
     output = ""    
 
-    for word in words[1:-1]:
+    for word in words:
         output += word[:-1] + " "
         
     return output
