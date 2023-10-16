@@ -13,19 +13,13 @@ def sampleWordFromProbabilities(probability_words, probability_values):
     return list(probability_words)[random_index]
 
 def getNextWord(words):
-    if len(words) == 1:
+    try: # TRY TRIGRAM DISTRIBUTION
+        nextWord = sampleWordFromProbabilities(trigram_probabilities[words[-2]][words[-1]].keys(), trigram_probabilities[words[-2]][words[-1]].values())
+    except: # USE BIGRAM or UNIGRAM DISTRIBUTIONS
         try: # TRY BIGRAM DISTRIBUTION
             nextWord = sampleWordFromProbabilities(bigram_probabilities[words[-1]].keys(), bigram_probabilities[words[-1]].values())
-        except: # USE UNIGRAM DISTRIBUTION
+        except: # USE UNIGRAM DISTRIBUTIONS
             nextWord = sampleWordFromProbabilities(unigram_probabilities.keys(), unigram_probabilities.values())
-    else:
-        try: # TRY TRIGRAM DISTRIBUTION
-            nextWord = sampleWordFromProbabilities(trigram_probabilities[words[-2]][words[-1]].keys(), trigram_probabilities[words[-2]][words[-1]].values())
-        except: # USE BIGRAM or UNIGRAM DISTRIBUTIONS
-            try: # TRY BIGRAM DISTRIBUTION
-                nextWord = sampleWordFromProbabilities(bigram_probabilities[words[-1]].keys(), bigram_probabilities[words[-1]].values())
-            except: # USE UNIGRAM DISTRIBUTIONS
-                nextWord = sampleWordFromProbabilities(unigram_probabilities.keys(), unigram_probabilities.values())
                 
     return nextWord
         
